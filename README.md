@@ -14,7 +14,7 @@ One of the key things I wanted to incorporate into my training procedure was bei
 
 ![alt text](https://github.com/13jk59/Pytorch-DeepResidualNet/blob/master/gradientFlow.png)
 
-I also wanted to incorporate some simple unit tests to ensure my model was training as it should. One popular test I incorporated was after a set number of mini-batches, I would ensure that my parameter values had updated after performing an optimization step.
+I also wanted to incorporate some simple unit tests to ensure my model was training as it should. One test that worked well was after a certain number of mini-batches, I would ensure that my parameter values had updated after performing an optimization step.
 
 Both of these methods allowed me to debug my network much easier and streamlined the training procedure. 
 
