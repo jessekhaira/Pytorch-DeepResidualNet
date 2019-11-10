@@ -6,13 +6,13 @@ The purpose of this project was primarily to learn and practice using Pytorch. T
 ## Model Summary
 A standard ResNet model was implemented, as summarized in the image below. 
 
-![alt text](https://github.com/13jk59/CIFAR-10/blob/master/modelSummary.png)
+![alt text](https://github.com/13jk59/Pytorch-DeepResidualNet/blob/master/modelSummary.png)
 
 
 ## Notes 
 One of the key things I wanted to incorporate into my training procedure was being able to visualize the gradient flow through the layers of my neural network. A sample gradient flow from one of the mini-batches is shown in the image below.
 
-![alt text](https://github.com/13jk59/CIFAR-10/blob/master/gradientFlow.png)
+![alt text](https://github.com/13jk59/Pytorch-DeepResidualNet/blob/master/gradientFlow.png)
 
 I also wanted to incorporate some simple unit tests to ensure my model was training as it should. One popular test I incorporated was after a set number of mini-batches, I would ensure that my parameter values had updated after performing an optimization step.
 
