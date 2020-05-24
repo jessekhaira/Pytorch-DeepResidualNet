@@ -1,20 +1,10 @@
 # Pytorch-DeepResidualNet
 
 ## Description 
-The purpose of this project was primarily to learn and practice using Pytorch. The dataset used in this project was CIFAR-10. Although the objective of this project wasn't to match the state of the art results on this dataset, respectable results were still obtained in approximately ~30 minutes of training on Kaggles GPU (~90% train accuracy/~80% validation accuracy). 
+The purpose of this project was to implement the residual net architecture used on the CIFAR-10 dataset with Pytorch described in the paper introducing residual networks in 2015, and replicate the main results from the paper (IE: A deep network should achieve comparable or better performance than a shallow network, not worse). 
 
-## Model Summary
-A standard ResNet model was implemented, as summarized in the image below. 
+## Summary
+A 20 layer ResNet and a 56 layer ResNet were implemented in Pytorch. As described in the paper, the depth of the networks was equivalent to 6n + 2, where n is the number of residual layers inside of a single residual block (of which there were three, with {16,32,64} filters respectively).
 
-![alt text](https://github.com/13jk59/Pytorch-DeepResidualNet/blob/master/modelSummary.png)
-
-
-## Notes 
-One of the key things I wanted to incorporate into my training procedure was being able to visualize the gradient flow through the layers of my neural network. A sample gradient flow from one of the mini-batches is shown in the image below.
-
-![alt text](https://github.com/13jk59/Pytorch-DeepResidualNet/blob/master/gradientFlow.png)
-
-I also wanted to incorporate some simple unit tests to ensure my model was training as it should. One test that worked well was after a certain number of mini-batches, I would ensure that my parameter values had updated as expected after performing an optimization step.
-
-Both of these methods allowed me to debug my network much easier and streamlined the training procedure. 
+The results from the paper were replicated on the dataset, with the 56 layer ResNets validation accuracy saturating at a value of ~92.5% and the 20 layer ResNets validation accuracy saturating at approx ~91.4%. 
 
