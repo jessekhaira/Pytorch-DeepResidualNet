@@ -12,7 +12,7 @@ After training the networks on the CIFAR-10 dataset, it was found that the 56 la
 
 The results are visualized below.
 
-<img src="./ResNets.png" width = "700">
+<img src="./ResNet.png" width = "700">
 
 
 ## References
