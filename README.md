@@ -12,5 +12,8 @@ After training the networks on the CIFAR-10 dataset, it was found that the 56 la
 
 The results are visualized below.
 
+<img src="./ResNet.png" width = "700">
+
+
 ## References
 [1] K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In CVPR, 2016.
