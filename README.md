@@ -1,14 +1,14 @@
 # Pytorch-DeepResidualNet
 
 ## Description 
-The purpose of this project was to implement the residual net architecture used on the CIFAR-10 dataset with Pytorch described in the paper introducing residual networks in 2015, and replicate the main results from the paper (IE: A deep network should achieve equivalent or better performance than a shallow network, not worse). 
+The purpose of this project was to use Pytorch to implement residual neural networks as introduced in the original paper published in 2015, and replicate the main result from the paper that deeper networks should achieve a comparable or better performance then shallower networks. 
 
 The full analysis and the model implementation can be seen in the Jupyter Notebook attached. 
 
 ## Results
-I implemented a 20 layer ResNet and a 56 layer ResNet in Pytorch. As described in the paper, the depth of the networks was equivalent to 6n + 2, where n is the number of residual layers inside of a single residual block (of which there were three, with {16,32,64} filters respectively). 
+A 20 layer and 56 layer resnet were implemented in pytorch, and both trained for 200 epochs. As described in the paper, the depth of the networks was equivalent to 6n + 2, where n is the number of residual layers inside of a single residual block (of which there were three, with {16,32,64} filters respectively). I followed the same data preprocessing and augmentation steps the authors described in the paper, but instead of normalizing the images to a range between -1 and 1, I normalized to 0 and 1. 
 
-After training the networks on the CIFAR-10 dataset, it was found that the 56 layer ResNets validation accuracy converged to a value of ~92.5% and the 20 layer ResNets validation accuracy converged to a value of ~91.4%
+After training each network on the CIFAR-10 dataset for 200 epochs, it was found that the 56 layer ResNets validation accuracy converged to a value of ~92.5% and the 20 layer ResNets validation accuracy converged to a value of ~91.4%. This indeed was very similar to the results the authors obtained, and proved that through utilizing skip connections, deeper networks could indeed perform better then shallower networks. 
 
 The results are visualized below.
 
