@@ -6,7 +6,7 @@ The purpose of this project was to use Pytorch to implement residual neural netw
 The full analysis and the model implementation can be seen in the Jupyter Notebook attached. 
 
 ## Results
-A 20 layer and 56 layer resnet were implemented in pytorch, and both trained for 200 epochs. As described in the paper, the depth of the networks was equivalent to 6n + 2, where n is the number of residual layers inside of a single residual block (of which there were three, with {16,32,64} filters respectively). I followed the same data preprocessing and augmentation steps the authors described in the paper, but instead of normalizing the images to a range between -1 and 1, I normalized to 0 and 1. 
+A 20 layer and 56 layer resnet were implemented in pytorch, and both trained for 200 epochs. As described in the paper, the depth of the networks was equivalent to 6n + 2, where n is the number of residual layers inside of a single residual block (of which there were three, with {16,32,64} filters respectively). I followed the same data preprocessing and augmentation steps the authors described in the paper, but instead of normalizing the images to a range between -1 and 1, I normalized to a range between 0 and 1. 
 
 After training each network on the CIFAR-10 dataset for 200 epochs, it was found that the 56 layer ResNets validation accuracy converged to a value of ~92.5% and the 20 layer ResNets validation accuracy converged to a value of ~91.4%. This indeed was very similar to the results the authors obtained, and proved that through utilizing skip connections, deeper networks could indeed perform better then shallower networks. 
 
