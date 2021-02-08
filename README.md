@@ -1,7 +1,7 @@
 # Pytorch-DeepResidualNet
 
 ## Description 
-The purpose of this project was to use Pytorch to implement residual neural networks as introduced in the original paper published in 2015, and replicate the main result from the paper that deeper networks should achieve a comparable or better performance then shallower networks. 
+The purpose of this project was to implement residual neural networks as presented in the paper published in 2015, and replicate the main result from the paper that deeper networks should achieve a comparable or better performance then shallower networks. The implementation was done in python using pytorch. 
 
 The full analysis and the model implementation can be seen in the Jupyter Notebook attached. 
 
