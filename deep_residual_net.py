@@ -12,13 +12,13 @@ class ConvBlock(nn.Module):
         self.model = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding),
             nn.BatchNorm2d(out_channels))
-        
+
         # initalize all the weights of every layer properly 
         self.model.apply(self._init_weights)
-        
+
     def forward(self, x:torch.tensor)->torch.Tensor:
         return self.model(x) 
-    
+
     def _init_weights(self, m):
         # init weights of convolution layers according to kaiming initialization
         if isinstance(m, nn.Conv2d):
@@ -30,7 +30,7 @@ class ConvBlock(nn.Module):
 class ResidualBlocks(nn.Module):
     def __init__(self, num_layers_perBlock):
         super(ResidualBlocks, self).__init__() 
-        
+
         # create a module list to hold all the blocks 
         self.container = nn.ModuleList() 
         # need to store a couple projection shortcuts -> each block
