@@ -14,12 +14,12 @@ class ConvBlock(nn.Module):
             nn.BatchNorm2d(out_channels))
         
         # initalize all the weights of every layer properly 
-        self.model.apply(self._initWeights)
+        self.model.apply(self._init_weights)
         
     def forward(self, x:torch.tensor)->torch.Tensor:
         return self.model(x) 
     
-    def _initWeights(self, m):
+    def _init_weights(self, m):
         # init weights of convolution layers according to kaiming initialization
         if isinstance(m, nn.Conv2d):
             nn.init.kaiming_normal_(m.weight, mode = 'fan_out',nonlinearity='relu')
