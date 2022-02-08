@@ -1,3 +1,5 @@
+""" This module contains an implementation of the original residual
+networks in Pytorch"""
 import numpy as np 
 import torch
 import torch.nn as nn
