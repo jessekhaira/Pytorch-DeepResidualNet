@@ -16,7 +16,7 @@ class ConvBlock(nn.Module):
         # initalize all the weights of every layer properly 
         self.model.apply(self._initWeights)
         
-    def forward(self, x):
+    def forward(self, x:torch.tensor)->torch.Tensor:
         return self.model(x) 
     
     def _initWeights(self, m):
