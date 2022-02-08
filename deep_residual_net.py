@@ -6,7 +6,7 @@ import torch.nn as nn
 from sklearn.model_selection import train_test_split
 
 class ConvBlock(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, stride, padding):
+    def __init__(self, in_channels:int, out_channels:int, kernel_size:int, stride:int, padding:int):
         super(ConvBlock, self).__init__() 
         self.out_channels = out_channels
         self.model = nn.Sequential(
