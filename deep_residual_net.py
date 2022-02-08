@@ -1,13 +1,7 @@
 import numpy as np 
-import pandas as pd 
 import torch
 import torch.nn as nn
-import matplotlib.pyplot as plt
-import matplotlib.image as mimg
-import random
-import copy
 from sklearn.model_selection import train_test_split
-import os
 
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding):
@@ -118,3 +112,66 @@ class ResNet(nn.Module):
     def forward(self, x):
         return self.model(x)
             
+def train_network(deep_network, device, num_epochs, lossFunc, optimizer, scheduler, train_dataloader, val_loader):
+    train_loss, valid_loss = [], []
+    train_acc, valid_acc = [], [] 
+    for epoch in range(num_epochs):
+        # ensure model in training mode
+        deep_network.train() 
+        epoch_TrainLoss = []
+        epoch_TrainAcc = [] 
+        for batch_idx, (x, y) in enumerate(train_dataloader):
+            # have to put the feature vectors and the labels on the same device that
+            # the deep net resides on
+            x = x.to(device)
+            y = y.to(device)
+            
+            # we are doing mini-batch gradient descent, so we cannot accumulate gradients
+            # between batches
+            optimizer.zero_grad()
+            
+            preds = deep_network(x)
+            
+            loss = lossFunc(preds, y)
+            
+            # backward prop to get the gradients of the cost function wrt every single parameter
+            # in the network so we can do gradient descent
+            loss.backward()
+            
+            # update every single parameter
+            optimizer.step() 
+            
+            epoch_TrainLoss.append(loss.item())
+            
+            # get the batch accuracy
+            batch_accuracy = (1/y.shape[0]*(preds.max(axis=1)[1] == y).sum()*100).item()
+            
+            epoch_TrainAcc.append(batch_accuracy)
+            
+            if batch_idx %10 ==0:
+                print('curr_epoch: %s, curr_batch: %s, acc: %s, loss: %s'%(epoch, batch_idx, batch_accuracy, loss.item()))
+        
+        epoch_loss = np.mean(epoch_TrainLoss)
+        epoch_acc = np.mean(epoch_TrainAcc)
+        train_loss.append(epoch_loss)
+        train_acc.append(epoch_acc)
+        
+        deep_network.eval()
+        # we dont want a computation graph created when we're getting val loss
+        # and val accuracy as we aren't going to perform any type of backward pass on these
+        with torch.no_grad():
+            for x,y in val_loader:
+                x = x.to(device)
+                y = y.to(device)
+                predictions = deep_network(x)
+                val_loss = lossFunc(predictions, y)
+                val_acc = 1/y.shape[0]*(predictions.max(axis=1)[1] == y).sum()*100
+                valid_loss.append(val_loss.item())
+                valid_acc.append(val_acc.item())
+                
+        if epoch % 5 == 0:
+            print('Epoch Num: %s, Train Loss: %s, Train Accuracy: %s, Val Loss: %s, Val Accuracy: %s'%(epoch, epoch_loss, epoch_acc, val_loss.item(), val_acc.item()))
+        
+        # step the scheduler so optimizer uses the correct learning rate
+        scheduler.step(val_loss)
+    return train_loss, valid_loss, train_acc, valid_acc
