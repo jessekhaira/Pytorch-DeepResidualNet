@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from sklearn.model_selection import train_test_split
+from typing import Union
 
 class ConvBlock(nn.Module):
     def __init__(self, in_channels:int, out_channels:int, kernel_size:int, stride:int, padding:int):
@@ -19,7 +20,7 @@ class ConvBlock(nn.Module):
     def forward(self, x:torch.tensor)->torch.Tensor:
         return self.model(x) 
 
-    def _init_weights(self, m):
+    def _init_weights(self, m: Union[nn.Conv2d, nn.BatchNorm2d]):
         # init weights of convolution layers according to kaiming initialization
         if isinstance(m, nn.Conv2d):
             nn.init.kaiming_normal_(m.weight, mode = 'fan_out',nonlinearity='relu')
