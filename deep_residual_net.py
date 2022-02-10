@@ -39,15 +39,15 @@ class ResidualBlocks(nn.Module):
     def __init__(self, num_layers_perBlock):
         super(ResidualBlocks, self).__init__()
 
-        # create a module list to hold all the blocks
         self.container = nn.ModuleList()
-        # need to store a couple projection shortcuts -> each block
-        # excluding the first has one connection shortcut to connect the shortcut connection from prev
-        # block to current block
+        # need to store a couple projection shortcuts -> each block excluding
+        # the first has one connection shortcut to connect the shortcut
+        # connection from prev block to current block
         self.weighted_skipConnects = nn.ModuleDict()
-        # 3 blocks of residual connections, each with a different amount of filters
-        NumFilters = {0: 16, 1: 32, 2: 64}
+        num_filters = {0: 16, 1: 32, 2: 64}
         weighted_skip_connectCounter = 0
+        # 3 blocks of residual connections, each with a different amount of
+        # filters
         for i in range(3):
             # for every layer in the current residual block (we have 2n total layers in every block)
             for j in range(2 * num_layers_perBlock):
@@ -63,7 +63,7 @@ class ResidualBlocks(nn.Module):
 
                 self.container.append(
                     ConvBlock(in_channels,
-                              out_channels=NumFilters[i],
+                              out_channels=num_filters[i],
                               kernel_size=3,
                               stride=stride,
                               padding=1))
@@ -73,10 +73,11 @@ class ResidualBlocks(nn.Module):
                         'WeightedSkipConnect' +
                         str(weighted_skip_connectCounter)] = nn.Sequential(
                             nn.Conv2d(in_channels=in_channels,
-                                      out_channels=NumFilters[i],
+                                      out_channels=num_filters[i],
                                       kernel_size=1,
                                       stride=2,
-                                      padding=0), nn.BatchNorm2d(NumFilters[i]))
+                                      padding=0),
+                            nn.BatchNorm2d(num_filters[i]))
                     weighted_skip_connectCounter += 1
 
     def forward(self, x):
