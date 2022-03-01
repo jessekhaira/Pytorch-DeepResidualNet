@@ -22,7 +22,7 @@ After training each network on the CIFAR-10 dataset for 200 epochs, it was found
 
 The results are visualized below.
 
-<img src="./ResNet.png" width = "700">
+<img src="./images/ResNet.png" width = "700">
 
 ## References
 
