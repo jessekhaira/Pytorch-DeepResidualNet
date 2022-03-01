@@ -3,7 +3,6 @@ networks in Pytorch"""
 import numpy as np
 import torch
 import torch.nn as nn
-from sklearn.model_selection import train_test_split
 from typing import Union
 
 
@@ -17,7 +16,7 @@ class ConvBlock(nn.Module):
             nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding),
             nn.BatchNorm2d(out_channels))
 
-        # initalize all the weights of every layer properly
+        # initialize all the weights of every layer properly
         self.model.apply(self._init_weights)
 
     def forward(self, x: torch.tensor) -> torch.Tensor:
