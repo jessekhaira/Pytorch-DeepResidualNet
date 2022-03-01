@@ -6,7 +6,7 @@ The purpose of this project was to implement residual neural networks as present
 
 The analysis was carried out in a Jupyter Notebook and can be seen [here](https://github.com/13jk59/Pytorch-DeepResidualNet/blob/master/Deep%20Residual%20Net%20Pytorch.ipynb).
 
-### Installation
+## Installation
 
 ```
 git clone https://github.com/13jk59/Pytorch-DeepResidualNet.git
