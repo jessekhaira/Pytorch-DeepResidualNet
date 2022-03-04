@@ -48,17 +48,21 @@ class ResidualBlocks(nn.Module):
         # 3 blocks of residual connections, each with a different amount of
         # filters
         for i in range(3):
-            # for every layer in the current residual block (we have 2n total layers in every block)
+            # for every layer in the current residual block
+            # (we have 2n total layers in every block)
             for j in range(2 * num_layers_perBlock):
                 in_channels = 16 if not self.container else self.container[
                     -1].out_channels
 
-                # we need a stride of two for the first convolution operation of the second batch of convolution operations
-                # and for the third batch of convolution operations to downsample the input by 2 in terms of H and W
+                # we need a stride of two for the first convolution operation
+                # of the second batch of convolution operations and for the
+                # third batch of convolution operations to downsample the
+                # input by 2 in terms of H and W
                 stride = 2 if (i > 0 and j == 0) else 1
-                # padding is kept at a constant value of 1 for every single conv operation, even when we're downsampling
-                # keeps operations symmetric - we upsample the number of filters by a factor of 2 and downsample the H and W by
-                # a factor of 2
+                # padding is kept at a constant value of 1 for every single
+                # conv operation, even when we're downsampling keeps operations
+                # symmetric - we upsample the number of filters by a factor of
+                # 2 and downsample the H and W by a factor of 2
 
                 self.container.append(
                     ConvBlock(in_channels,
