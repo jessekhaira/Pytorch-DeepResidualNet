@@ -96,11 +96,12 @@ class ResidualBlocks(nn.Module):
             # pass the current x through a conv operation and
             # batch norm operation
             curr_x = self.container[i](curr_x)
-            # every two steps, we add a skip connection to the curr_x and then pass it
-            # through the ReLU
+            # every two steps, we add a skip connection to the curr_x and
+            # then pass it through the ReLU
             if i % 2 == 1:
-                # use a 1x1 convolution with a stride of 2 to downsample in terms of height and
-                # width, and upsample in terms of number of channels ONLY if the shapes dont match
+                # use a 1x1 convolution with a stride of 2 to downsample
+                # in terms of height and width, and upsample in terms of
+                # number of channels ONLY if the shapes dont match
                 if skip_connection.shape != curr_x.shape:
                     skip_connection = self.weighted_skipConnects[
                         'WeightedSkipConnect' +
@@ -110,9 +111,9 @@ class ResidualBlocks(nn.Module):
                 # curr_x becomes new skip connection
                 skip_connection = curr_x.clone()
 
-            # didnt include ReLU in the conv blocks because we add the
-            # skip connection after the batch norm operation of the conv block, and then
-            # activate
+            # didn't include ReLU in the conv blocks because we add the
+            # skip connection after the batch norm operation of the conv
+            # block, and then activate
             curr_x = nn.ReLU()(curr_x)
         return curr_x
 
@@ -152,13 +153,13 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
         epoch_TrainLoss = []
         epoch_TrainAcc = []
         for batch_idx, (x, y) in enumerate(train_dataloader):
-            # have to put the feature vectors and the labels on the same device that
-            # the deep net resides on
+            # have to put the feature vectors and the labels on the same
+            # device that the deep net resides on
             x = x.to(device)
             y = y.to(device)
 
-            # we are doing mini-batch gradient descent, so we cannot accumulate gradients
-            # between batches
+            # we are doing mini-batch gradient descent, so we cannot accumulate
+            # gradients between batches
             optimizer.zero_grad()
 
             preds = deep_network(x)
