@@ -125,11 +125,12 @@ class ResNet(nn.Module):
         super(ResNet, self).__init__()
         n = (depth - 2) // 6
         assert type(n) is int, "Num blocks per stack not equal to integer"
-        # This will return a nn.Module object with all of the residual skip blocks
-        # used in the network (total being 6*n of these blocks)
+        # This will return a nn.Module object with all of the residual skip
+        # blocks used in the network (total being 6*n of these blocks)
         residualBlockConnections_6n = ResidualBlocks(n)
-        # Then we just have a Conv2D operation, followed by the entire residual section block
-        # followed by a global avg pool, then a 10 way softmax
+        # Then we just have a Conv2D operation, followed by the entire
+        # residual section block followed by a global avg pool, then
+        # a 10 way softmax
         self.model = nn.Sequential(
             ConvBlock(3, 16, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
@@ -166,8 +167,8 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
 
             loss = lossFunc(preds, y)
 
-            # backward prop to get the gradients of the cost function wrt every single parameter
-            # in the network so we can do gradient descent
+            # backward prop to get the gradients of the cost function wrt every
+            # single parameter in the network so we can do gradient descent
             loss.backward()
 
             # update every single parameter
