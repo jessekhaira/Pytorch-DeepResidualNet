@@ -55,7 +55,7 @@ class ConvBlock(nn.Module):
 
 class ResidualBlocks(nn.Module):
 
-    def __init__(self, num_layers_per_block):
+    def __init__(self, num_layers_per_block: int):
         super(ResidualBlocks, self).__init__()
 
         self.container = nn.ModuleList()
@@ -103,7 +103,7 @@ class ResidualBlocks(nn.Module):
                             nn.BatchNorm2d(num_filters[i]))
                     weighted_skip_connectCounter += 1
 
-    def forward(self, x):
+    def forward(self, x: torch.tensor) -> torch.Tensor:
         # This is where the actual skip connections happen
         # the architecture is technically the same as a plain deep net
         # but during the forward pass (and the backward pass too), we take
