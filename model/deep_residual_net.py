@@ -191,8 +191,9 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
         train_acc.append(epoch_acc)
 
         deep_network.eval()
-        # we dont want a computation graph created when we're getting val loss
-        # and val accuracy as we aren't going to perform any type of backward pass on these
+        # we dont want a computation graph created when we're getting
+        # val loss and val accuracy as we aren't going to perform any
+        # type of backward pass on these
         with torch.no_grad():
             for x, y in val_loader:
                 x = x.to(device)
