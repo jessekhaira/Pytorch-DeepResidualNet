@@ -26,8 +26,8 @@ class ConvBlock(nn.Module):
         # init weights of convolution layers according to kaiming initialization
         if isinstance(m, nn.Conv2d):
             nn.init.kaiming_normal_(m.weight,
-                                    mode='fan_out',
-                                    nonlinearity='relu')
+                                    mode="fan_out",
+                                    nonlinearity="relu")
         elif isinstance(m, nn.BatchNorm2d):
             nn.init.constant_(m.weight, 1)
             nn.init.constant_(m.bias, 0)
@@ -73,7 +73,7 @@ class ResidualBlocks(nn.Module):
 
                 if i > 0 and j == 0:
                     self.weighted_skipConnects[
-                        'WeightedSkipConnect' +
+                        "WeightedSkipConnect" +
                         str(weighted_skip_connectCounter)] = nn.Sequential(
                             nn.Conv2d(in_channels=in_channels,
                                       out_channels=num_filters[i],
@@ -104,7 +104,7 @@ class ResidualBlocks(nn.Module):
                 # number of channels ONLY if the shapes dont match
                 if skip_connection.shape != curr_x.shape:
                     skip_connection = self.weighted_skipConnects[
-                        'WeightedSkipConnect' +
+                        "WeightedSkipConnect" +
                         str(weighted_skip_connectCounter)](skip_connection)
                     weighted_skip_connectCounter += 1
                 curr_x = curr_x.add(skip_connection)
@@ -182,7 +182,7 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
             epoch_TrainAcc.append(batch_accuracy)
 
             if batch_idx % 10 == 0:
-                print('curr_epoch: %s, curr_batch: %s, acc: %s, loss: %s' %
+                print("curr_epoch: %s, curr_batch: %s, acc: %s, loss: %s" %
                       (epoch, batch_idx, batch_accuracy, loss.item()))
 
         epoch_loss = np.mean(epoch_TrainLoss)
@@ -206,7 +206,7 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
 
         if epoch % 5 == 0:
             print(
-                'Epoch Num: %s, Train Loss: %s, Train Accuracy: %s, Val Loss: %s, Val Accuracy: %s'
+                "Epoch Num: %s, Train Loss: %s, Train Accuracy: %s, Val Loss: %s, Val Accuracy: %s"
                 %
                 (epoch, epoch_loss, epoch_acc, val_loss.item(), val_acc.item()))
 
