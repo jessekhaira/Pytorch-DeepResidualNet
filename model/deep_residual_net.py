@@ -7,6 +7,26 @@ from typing import Union
 
 
 class ConvBlock(nn.Module):
+    """This class represents a torch class, which consists of
+    a 2d convolution followed by a 2d batch norm operation.
+
+    Args:
+        in_channels:
+            Integer representing the number of channels in the
+            input to the layer
+        out_channels:
+            Integer representing the number of channels in the
+            output of the layer
+        kernel_size:
+            Integer representing the size of the filter to be used
+            in the layer
+        stride:
+            Integer representing the size of the stride to be used in the
+            layer
+        padding:
+            Integer representing the amount of padding to be used in the
+            layer
+    """
 
     def __init__(self, in_channels: int, out_channels: int, kernel_size: int,
                  stride: int, padding: int):
