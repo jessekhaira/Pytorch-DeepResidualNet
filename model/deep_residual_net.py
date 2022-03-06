@@ -35,7 +35,7 @@ class ConvBlock(nn.Module):
 
 class ResidualBlocks(nn.Module):
 
-    def __init__(self, num_layers_perBlock):
+    def __init__(self, num_layers_per_block):
         super(ResidualBlocks, self).__init__()
 
         self.container = nn.ModuleList()
@@ -50,7 +50,7 @@ class ResidualBlocks(nn.Module):
         for i in range(3):
             # for every layer in the current residual block
             # (we have 2n total layers in every block)
-            for j in range(2 * num_layers_perBlock):
+            for j in range(2 * num_layers_per_block):
                 in_channels = 16 if not self.container else self.container[
                     -1].out_channels
 
