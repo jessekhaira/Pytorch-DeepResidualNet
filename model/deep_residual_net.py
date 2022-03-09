@@ -64,7 +64,7 @@ class ResidualBlocks(nn.Module):
         # connection from prev block to current block
         self.weighted_skipConnects = nn.ModuleDict()
         num_filters = {0: 16, 1: 32, 2: 64}
-        weighted_skip_connectCounter = 0
+        weighted_skip_connection_counter = 0
         # 3 blocks of residual connections, each with a different amount of
         # filters
         for i in range(3):
@@ -94,14 +94,14 @@ class ResidualBlocks(nn.Module):
                 if i > 0 and j == 0:
                     self.weighted_skipConnects[
                         "WeightedSkipConnect" +
-                        str(weighted_skip_connectCounter)] = nn.Sequential(
+                        str(weighted_skip_connection_counter)] = nn.Sequential(
                             nn.Conv2d(in_channels=in_channels,
                                       out_channels=num_filters[i],
                                       kernel_size=1,
                                       stride=2,
                                       padding=0),
                             nn.BatchNorm2d(num_filters[i]))
-                    weighted_skip_connectCounter += 1
+                    weighted_skip_connection_counter += 1
 
     def forward(self, x: torch.tensor) -> torch.Tensor:
         # This is where the actual skip connections happen
@@ -111,7 +111,7 @@ class ResidualBlocks(nn.Module):
         # down from the current layer
         skip_connection = x.clone()
         curr_x = x
-        weighted_skip_connectCounter = 0
+        weighted_skip_connection_counter = 0
         for i in range(len(self.container)):
             # pass the current x through a conv operation and
             # batch norm operation
@@ -125,8 +125,8 @@ class ResidualBlocks(nn.Module):
                 if skip_connection.shape != curr_x.shape:
                     skip_connection = self.weighted_skipConnects[
                         "WeightedSkipConnect" +
-                        str(weighted_skip_connectCounter)](skip_connection)
-                    weighted_skip_connectCounter += 1
+                        str(weighted_skip_connection_counter)](skip_connection)
+                    weighted_skip_connection_counter += 1
                 curr_x = curr_x.add(skip_connection)
                 # curr_x becomes new skip connection
                 skip_connection = curr_x.clone()
