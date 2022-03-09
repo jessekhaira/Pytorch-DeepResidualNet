@@ -7,7 +7,7 @@ from typing import Union
 
 
 class ConvBlock(nn.Module):
-    """This class represents a torch class, which consists of
+    """ This class represents a torch class, which consists of
     a 2d convolution followed by a 2d batch norm operation.
 
     Args:
@@ -144,7 +144,7 @@ class ResidualBlocks(nn.Module):
 
 class ResNet(nn.Module):
 
-    def __init__(self, depth=20):
+    def __init__(self, depth: int = 20):
         torch.manual_seed(21)
         super(ResNet, self).__init__()
         n = (depth - 2) // 6
@@ -164,7 +164,7 @@ class ResNet(nn.Module):
         # cross entropy loss expects raw logits of shape (N,C)
             nn.Linear(in_features=64, out_features=10))
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.model(x)
 
 
