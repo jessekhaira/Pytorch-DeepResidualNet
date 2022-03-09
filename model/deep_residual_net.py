@@ -168,7 +168,7 @@ class ResNet(nn.Module):
         return self.model(x)
 
 
-def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
+def train_network(deep_network, device, num_epochs, loss_function, optimizer,
                   scheduler, train_dataloader, val_loader):
     train_loss, valid_loss = [], []
     train_acc, valid_acc = [], []
@@ -189,7 +189,7 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
 
             preds = deep_network(x)
 
-            loss = lossFunc(preds, y)
+            loss = loss_function(preds, y)
 
             # backward prop to get the gradients of the cost function wrt every
             # single parameter in the network so we can do gradient descent
@@ -224,7 +224,7 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
                 x = x.to(device)
                 y = y.to(device)
                 predictions = deep_network(x)
-                val_loss = lossFunc(predictions, y)
+                val_loss = loss_function(predictions, y)
                 val_acc = 1 / y.shape[0] * (predictions.max(axis=1)[1]
                                             == y).sum() * 100
                 valid_loss.append(val_loss.item())
