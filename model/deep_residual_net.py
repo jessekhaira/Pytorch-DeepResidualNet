@@ -171,8 +171,8 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
     for epoch in range(num_epochs):
         # ensure model in training mode
         deep_network.train()
-        epoch_TrainLoss = []
-        epoch_TrainAcc = []
+        epoch_training_loss = []
+        epoch_training_accuracy = []
         for batch_idx, (x, y) in enumerate(train_dataloader):
             # have to put the feature vectors and the labels on the same
             # device that the deep net resides on
@@ -194,20 +194,20 @@ def train_network(deep_network, device, num_epochs, lossFunc, optimizer,
             # update every single parameter
             optimizer.step()
 
-            epoch_TrainLoss.append(loss.item())
+            epoch_training_loss.append(loss.item())
 
             # get the batch accuracy
             batch_accuracy = (1 / y.shape[0] *
                               (preds.max(axis=1)[1] == y).sum() * 100).item()
 
-            epoch_TrainAcc.append(batch_accuracy)
+            epoch_training_accuracy.append(batch_accuracy)
 
             if batch_idx % 10 == 0:
                 print("curr_epoch: %s, curr_batch: %s, acc: %s, loss: %s" %
                       (epoch, batch_idx, batch_accuracy, loss.item()))
 
-        epoch_loss = np.mean(epoch_TrainLoss)
-        epoch_acc = np.mean(epoch_TrainAcc)
+        epoch_loss = np.mean(epoch_training_loss)
+        epoch_acc = np.mean(epoch_training_accuracy)
         train_loss.append(epoch_loss)
         train_acc.append(epoch_acc)
 
