@@ -40,9 +40,13 @@ class ConvBlock(nn.Module):
         self.model.apply(self._init_weights)
 
     def forward(self, x: torch.tensor) -> torch.Tensor:
+        """ This method implements the forward pass for the convolutional
+        block"""
         return self.model(x)
 
     def _init_weights(self, m: Union[nn.Conv2d, nn.BatchNorm2d]):
+        """ This method initializes the weights of the model the same way
+        the residual network paper did"""
         # init weights of convolution layers according to kaiming initialization
         if isinstance(m, nn.Conv2d):
             nn.init.kaiming_normal_(m.weight,
