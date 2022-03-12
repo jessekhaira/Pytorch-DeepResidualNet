@@ -151,14 +151,14 @@ class ResNet(nn.Module):
         assert type(n) is int, "Num blocks per stack not equal to integer"
         # This will return a nn.Module object with all of the residual skip
         # blocks used in the network (total being 6*n of these blocks)
-        residualBlockConnections_6n = ResidualBlocks(n)
+        residual_block_connections_6n = ResidualBlocks(n)
         # Then we just have a Conv2D operation, followed by the entire
         # residual section block followed by a global avg pool, then
         # a 10 way softmax
         self.model = nn.Sequential(
             ConvBlock(3, 16, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            residualBlockConnections_6n,
+            residual_block_connections_6n,
             nn.AvgPool2d(kernel_size=8),
             nn.Flatten(),
         # cross entropy loss expects raw logits of shape (N,C)
