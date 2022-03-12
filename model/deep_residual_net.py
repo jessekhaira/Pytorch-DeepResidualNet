@@ -143,6 +143,8 @@ class ResidualBlocks(nn.Module):
 
 
 class ResNet(nn.Module):
+    """ This class inherits from the nn.Module class in Pytorch
+    and represents a Residual Neural Network"""
 
     def __init__(self, depth: int = 20):
         torch.manual_seed(21)
