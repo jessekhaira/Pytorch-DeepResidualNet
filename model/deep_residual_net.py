@@ -3,7 +3,7 @@ networks in Pytorch"""
 import numpy as np
 import torch
 import torch.nn as nn
-from typing import Union
+from typing import Union, List, Tuple
 
 
 class ConvBlock(nn.Module):
@@ -170,8 +170,13 @@ class ResNet(nn.Module):
         return self.model(x)
 
 
-def train_network(deep_network, device, num_epochs, loss_function, optimizer,
-                  scheduler, train_dataloader, val_loader):
+def train_network(
+    deep_network: nn.module, device: torch.device, num_epochs: int,
+    loss_function: nn.loss, optimizer: torch.optim,
+    scheduler: torch.optim.lr_scheduler,
+    train_dataloader: torch.utils.data.DataLoader,
+    val_loader: torch.utils.data.DataLoader
+) -> Tuple[List[float], List[float], List[float], List[float]]:
     train_loss, valid_loss = [], []
     train_acc, valid_acc = [], []
     for epoch in range(num_epochs):
