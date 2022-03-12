@@ -66,7 +66,7 @@ class ResidualBlocks(nn.Module):
         # need to store a couple projection shortcuts -> each block excluding
         # the first has one connection shortcut to connect the shortcut
         # connection from prev block to current block
-        self.weighted_skipConnects = nn.ModuleDict()
+        self.weighted_skip_connections = nn.ModuleDict()
         num_filters = {0: 16, 1: 32, 2: 64}
         weighted_skip_connection_counter = 0
         # 3 blocks of residual connections, each with a different amount of
@@ -96,7 +96,7 @@ class ResidualBlocks(nn.Module):
                               padding=1))
 
                 if i > 0 and j == 0:
-                    self.weighted_skipConnects[
+                    self.weighted_skip_connections[
                         "WeightedSkipConnect" +
                         str(weighted_skip_connection_counter)] = nn.Sequential(
                             nn.Conv2d(in_channels=in_channels,
@@ -127,7 +127,7 @@ class ResidualBlocks(nn.Module):
                 # in terms of height and width, and upsample in terms of
                 # number of channels ONLY if the shapes dont match
                 if skip_connection.shape != curr_x.shape:
-                    skip_connection = self.weighted_skipConnects[
+                    skip_connection = self.weighted_skip_connections[
                         "WeightedSkipConnect" +
                         str(weighted_skip_connection_counter)](skip_connection)
                     weighted_skip_connection_counter += 1
