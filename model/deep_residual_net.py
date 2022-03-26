@@ -10,7 +10,7 @@ class ConvBlock(nn.Module):
     """ This class represents a torch class, which consists of
     a 2d convolution followed by a 2d batch norm operation.
 
-    Args:
+    Attributes:
         in_channels:
             Integer representing the number of channels in the
             input to the layer
@@ -58,7 +58,8 @@ class ConvBlock(nn.Module):
 
 
 class ResidualBlocks(nn.Module):
-
+    """ This class represents a convolutional neural network
+    containing residual connections"""
     def __init__(self, num_layers_per_block: int):
         super(ResidualBlocks, self).__init__()
 
